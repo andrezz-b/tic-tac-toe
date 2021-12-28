@@ -1,0 +1,96 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+:root {
+    --ff-title: 'Quicksand', sans-serif;
+    --ff-text: 'Open Sans Condensed', sans-serif;
+    --board-width: 24em;
+}
+
+body {
+    height: 100vh;
+    font-family: var(--ff-title);
+    font-weight: 300;
+    font-size: 1em;
+    display: flex;
+    flex-flow: column;
+}
+
+/* @media only screen and (max-width: 550px) {
+    body {
+      font-size: 0.8em;
+    }
+  } */
+
+header{
+    font-weight: 500;
+    font-size: 3.25em;
+    padding: 0.5em;
+    width: 100%;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    padding: 3em;
+    border: 1px solid black;
+    min-width: 340px;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: 1px solid black;
+    width: var(--board-width);
+    height: auto;
+}
+
+#board div {
+    border: 1px solid black;
+    width: calc(var(--board-width) / 3);
+    height: calc(var(--board-width) / 3);
+}
+
+.circle {
+    border-radius: 50%;
+    height: 6em;
+    width: 6em;
+    border: 0.6em solid black;
+}
+
+.cross {
+    width: 6em;
+    height: 6em;
+    position: relative;
+}
+
+.cross::before, .cross::after {
+    position: absolute;
+    content: ' ';
+    height: 6em;
+    width: 0.65em;
+    top: 0;
+    right: 45%;
+    background-color: black;
+  }
+  .cross::before {
+    transform: rotate(45deg);
+  }
+  .cross::after {
+    transform: rotate(-45deg);
+  }
+
+footer {
+    font-size: 0.85rem;
+    font-family: var(--ff-text);
+    width: 100%;
+    padding: 1.15em;
+    margin-top: auto;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
