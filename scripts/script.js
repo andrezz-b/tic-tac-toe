@@ -37,4 +37,24 @@ const gameBoard = (function(){
 })();
 
 gameBoard.init();
-gameBoard.render();
+
+const Player = function(name, sym){
+    let score = 0;
+
+    function increaseScore(){
+        this.score++;
+    }
+
+    function getSym(){
+        return sym;
+    }
+
+    return {
+        name,
+        score,
+        getSym,
+        increaseScore,
+    }
+}
+
+const john = Player("John", "x");
