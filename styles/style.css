@@ -53,6 +53,7 @@ main {
 }
 
 .circle {
+    z-index: -1;
     border-radius: 50%;
     height: 6em;
     width: 6em;
@@ -60,6 +61,7 @@ main {
 }
 
 .cross {
+    z-index: -1;
     width: 6em;
     height: 6em;
     position: relative;
