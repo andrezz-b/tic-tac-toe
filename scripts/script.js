@@ -31,7 +31,10 @@ const gameBoard = (function () {
 	function populateBoard(e) {
 		const div = e.target;
 		const index = parseInt(div.getAttribute("data-key"));
+
+        // If there is something in the array at that index, stop
 		if (boardArray[index] === "x" || boardArray[index] === "o") return;
+
 		boardArray.splice(index, 1, gameController.getTurn());
 		render();
 		if (checkWinCondition() || checkTie()) return;
@@ -70,6 +73,8 @@ const gameBoard = (function () {
 	}
 
 	function checkTie() {
+        // If the length of the non 0 array is 9 that means all have been played, 
+        // and if the win condition didn't trigger then the it's a tie
 		const moves = boardArray.filter((el) => el != 0);
 		if (moves.length === 9) {
 			gameController.createOverlay(true);
@@ -142,7 +147,7 @@ const gameController = (function () {
 	}
 
 	function reset() {
-		overlay.style.display = "none";
+		removeOverlay();
 		gameBoard.resetBoard();
 		createPlayer(undefined, player1);
 		createPlayer(undefined, player2);
@@ -153,7 +158,9 @@ const gameController = (function () {
 	function createOverlay(tie) {
 		overlay.style.display = "flex";
 		if (tie) {
-			overlay.firstChild.textContent = "Tie";
+			overlay.firstChild.textContent = "Tie!";
+            // Adds the data attribute for checking the tie later without the 
+            // need to pass it as an argument
 			overlay.setAttribute("data-tie", 1);
 		} else {
 			if (getTurn() === "o") {
