@@ -35,9 +35,8 @@ const gameBoard = (function(){
         if (boardArray[index] === "x" || boardArray[index] === "o") return;
         boardArray.splice(index, 1, gameController.getTurn());
         render();
-        checkWinCondition();
-        checkTie();
-        if (!checkWinCondition() && !checkTie()) gameController.changeTurn();
+        if (checkWinCondition() || checkTie()) return;
+        gameController.changeTurn();
     }
 
     function checkWinCondition(){
@@ -91,8 +90,6 @@ const gameBoard = (function(){
     }
 })();
 
-gameBoard.init();
-
 const Player = function(name){
     let score = 0;
 
@@ -127,14 +124,30 @@ const gameController = (function(){
     let turn = "o";
 
     function addListeners(){
-        // startBtn.addEventListener("click", start);
-        // resetBtn.addEventListener("click", start);
+        startBtn.addEventListener("click", init);
+        resetBtn.addEventListener("click", reset);
         setPlayer1btn.addEventListener("click", function(e){
+            reset();
             createPlayer(e, player1);
         });
         setPlayer2btn.addEventListener("click", function(e){
+            reset();
             createPlayer(e, player2);
         });
+    }
+
+    function init(){
+        createPlayer(undefined, player1);
+        createPlayer(undefined, player2);
+        gameBoard.init();
+    }
+
+    function reset(){
+        gameBoard.resetBoard();
+        createPlayer(undefined, player1);
+        createPlayer(undefined, player2);
+        updateScore();
+        turn = "o";
     }
 
     function getTurn(){
@@ -145,10 +158,13 @@ const gameController = (function(){
     }
 
     function createPlayer(event, player){
-        const input = event.target.previousElementSibling.firstElementChild;
-        let name = input.value || player.name;
+        let name = player.name;
+        if (event != undefined){
+            const input = event.target.previousElementSibling.firstElementChild;
+            name = input.value;
+            input.value = "";
+        }
         player = Object.assign(player, Player(name));
-        input.value = "";
         setName(player);
     }
 
@@ -185,11 +201,7 @@ const gameController = (function(){
         nextRound,
         getTurn,
         changeTurn,
-        player1,
-        player2,
     }
 })();
 
 gameController.addListeners();
-
-const john = Player("John", "x");
