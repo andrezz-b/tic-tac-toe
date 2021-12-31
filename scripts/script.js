@@ -12,14 +12,21 @@ const gameBoard = (function(){
 
     function render(){
         boardArray.forEach((el, i) => {
+            let span = document.querySelector(`[data-key="${i}"]`).firstChild;
             if (el === "x"){
-                let span = document.querySelector(`[data-key="${i}"]`).firstChild;
                 span.classList.add("cross");
             } else if (el === "o"){
-                let span = document.querySelector(`[data-key="${i}"]`).firstChild;
                 span.classList.add("circle");
+            } else {
+                span.classList.remove("cross");
+                span.classList.remove("circle");
             }
         })
+    }
+
+    function resetBoard(){
+        boardArray = [0, 0, 0, 0, 0, 0, 0, 0, 0,];
+        render();
     }
 
     function populateBoard(e){
@@ -30,7 +37,7 @@ const gameBoard = (function(){
         render();
         checkWinCondition();
         checkTie();
-        gameController.changeTurn();
+        if (!checkWinCondition() && !checkTie()) gameController.changeTurn();
     }
 
     function checkWinCondition(){
@@ -48,32 +55,39 @@ const gameBoard = (function(){
             for (let j = 0; j < 3; j++) {
                  row += rows[i][j];
                  column += rows[j][i];
-                 diag1 += rows[j][j]
-                 diag2 += rows[2 - j][j]
+                 diag1 += rows[j][j];
+                 diag2 += rows[2 - j][j];
             }
             switch (winCondition) {
                 case row:
-                    break;
+                    gameController.nextRound();
+                    return 1;
                 case column:
-                    break;
+                    gameController.nextRound();
+                    return 1;
                 case diag1:
-                    break;
+                    gameController.nextRound();
+                    return 1;
                 case diag2:
-                    break;    
+                    gameController.nextRound();
+                    return 1;
             }
         }
+        return 0;
     }
 
     function checkTie(){
         const moves = boardArray.filter(el => el != 0);
         if (moves.length === 9){
-            
+            gameController.nextRound(true);
+            return 1;
         }
+        return 0;
     }
 
     return {
         init,
-        render
+        resetBoard
     }
 })();
 
@@ -146,6 +160,19 @@ const gameController = (function(){
         })
     }
 
+    function nextRound(tie){
+        gameBoard.resetBoard();
+        if (!tie) {
+            if (getTurn() === "o"){
+                player1.increaseScore();
+            } else {
+                player2.increaseScore();
+            }
+        }
+        updateScore();
+        turn = "o";
+    } 
+
     function updateScore(){
         const player1Score = document.querySelector("#counter-player1");
         const player2Score = document.querySelector("#counter-player2");
@@ -155,6 +182,7 @@ const gameController = (function(){
 
     return {
         addListeners,
+        nextRound,
         getTurn,
         changeTurn,
         player1,
