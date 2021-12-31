@@ -21,7 +21,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+}
+
+.center--column {
+    flex-flow: column;
 }
 
 /* @media only screen and (max-width: 550px) {
@@ -38,17 +41,8 @@ header{
 }
 
 .input {
-    flex-flow: column;
     font-family: var(--ff-text);
     font-size: 2em;
-}
-
-.center button{
-    position: absolute;
-    bottom: 2.5em;
-    font-family: var(--ff-text);
-    font-size: 2em;
-    padding: .25em .75em;
 }
 
 main.center {
@@ -57,7 +51,34 @@ main.center {
     padding: 3em;
     border: 1px solid black;
     min-width: 340px;
-    justify-content: space-evenly;
+    justify-content: space-around;
+}
+
+.scoreboard {
+    font-size: 2.25em;
+    font-family: var(--ff-title);
+    font-weight: 500;
+    row-gap: 1.25rem;
+}
+
+.center.scoreboard--counter{
+    font-size: 0.85em;
+    font-family: var(--ff-text);
+    font-weight: 300;
+    display: grid;
+    grid-template-columns: 1fr 1.25fr 1.25fr 1fr;
+}
+
+.center.scoreboard--counter span {
+    justify-self: center;
+    margin: 0 2.5rem;
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+
+.center.center--board {
+    width: 60%;
+    justify-content: space-around;
 }
 
 #board {
@@ -104,6 +125,10 @@ main.center {
   .cross::after {
     transform: rotate(-45deg);
   }
+
+.buttons {
+    gap: 1rem;
+}
 
 footer {
     font-size: 0.85rem;

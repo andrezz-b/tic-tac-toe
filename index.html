@@ -1,53 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/style.css">
-    <title>Tic-Tac-Toe</title>
-</head>
-<body>
-    <header class="center">
-        <h1>Tic Tac Toe</h1>
-    </header>
-    <main class="center">
-        <div class="center input" id="player1">
-            <div class="center">
-                <h2>Player 1   <span>&#x25CB;</span></h2>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="https://fonts.googleapis.com/css?family=Quicksand:300,500,700" rel="stylesheet" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="styles/reset.css" />
+		<link rel="stylesheet" href="styles/style.css" />
+		<title>Tic-Tac-Toe</title>
+	</head>
+	<body>
+		<header class="center">
+			<h1>Tic Tac Toe</h1>
+		</header>
+		<main class="center center--column">
+			<div class="center center--column scoreboard">
+				<div class="center">SCORE</div>
+				<div class="center scoreboard--counter">
+					<h2 class="player1">Player 1</h2>
+                    <span id="counter-player1">0</span>
+                    <span id="counter-player2">0</span>
+					<h2 class="player2">Player 2</h2>
+				</div>
+			</div>
+			<div class="center center--board">
+				<div class="center input center--column" id="player1-input">
+					<div class="center">
+						<h2 class="player1">Player 1<span>&#x25CB;</span></h2>
+					</div>
+					<label>
+						<input type="text" placeholder="Enter Your Name" />
+					</label>
+                    <button>SET</button>
+				</div>
+				<div id="board">
+					<div class="center"><span></span></div>
+					<div class="center"><span></span></div>
+					<div class="center"><span></span></div>
+					<div class="center"><span></span></div>
+					<div class="center"><span></span></div>
+					<div class="center"><span></span></div>
+					<div class="center"><span></span></div>
+					<div class="center"><span></span></div>
+					<div class="center"><span></span></div>
+				</div>
+				<div class="center input center--column" id="player2">
+					<div class="center">
+						<h2 class="player2">Player 2<span>&#10060;</span></h2>
+					</div>
+					<label>
+						<input type="text" placeholder="Enter Your Name" />
+					</label>
+                    <button>SET</button>
+				</div>
+			</div>
+			<div class="center buttons">
+                <button id="start-btn">START</button>
+                <button id="reset-btn">RESET</button>
             </div>
-            <label>
-                <input type="text" placeholder="Enter Your Name">
-            </label>
-           
-        </div>
-        <div id="board">
-            <div class="center"><span></span></div>
-            <div class="center"><span></span></div>
-            <div class="center"><span></span></div>
-            <div class="center"><span></span></div>
-            <div class="center"><span></span></div>
-            <div class="center"><span></span></div>
-            <div class="center"><span></span></div>
-            <div class="center"><span></span></div>
-            <div class="center"><span></span></div>
-        </div>
-        <div class="center input" id="player2">
-            <div class="center">
-                <h2>Player 2   <span>&#10060;</span></h2>
-            </div>
-            <label>
-                <input type="text" placeholder="Enter Your Name">
-            </label>
-        </div>
-    </main>
-    <div class="center"><button>START</button></div>
-    <footer class="center">
-        <div>Copyright &#9400; 2021 andrezz-b</div>
-    </footer>
-</body>
-<script src="scripts/script.js"></script>
+		</main>
+		<footer class="center">
+			<div>Copyright &#9400; 2021 andrezz-b</div>
+		</footer>
+	</body>
+	<script src="scripts/script.js"></script>
 </html>
