@@ -26,8 +26,9 @@ const gameBoard = (function(){
         const div = e.target;
         const index = parseInt(div.getAttribute("data-key"));
         if (boardArray[index] === "x" || boardArray[index] === "o") return;
-        boardArray.splice(index, 1, "o");
+        boardArray.splice(index, 1, gameController.getTurn());
         render();
+        gameController.changeTurn();
     }
 
     return {
@@ -69,6 +70,8 @@ const gameController = (function(){
     const player1 = {name: "Player 1", sym: "o",};
     const player2 = {name: "Player 2", sym: "x",};
 
+    let turn = "o";
+
     function addListeners(){
         // startBtn.addEventListener("click", start);
         // resetBtn.addEventListener("click", start);
@@ -78,6 +81,13 @@ const gameController = (function(){
         setPlayer2btn.addEventListener("click", function(e){
             createPlayer(e, player2);
         });
+    }
+
+    function getTurn(){
+        return turn;
+    }
+    function changeTurn(){
+        turn = (turn === "x") ? "o" : "x";
     }
 
     function createPlayer(event, player){
@@ -105,6 +115,8 @@ const gameController = (function(){
 
     return {
         addListeners,
+        getTurn,
+        changeTurn,
         player1,
         player2,
     }
