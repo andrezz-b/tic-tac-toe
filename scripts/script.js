@@ -28,7 +28,47 @@ const gameBoard = (function(){
         if (boardArray[index] === "x" || boardArray[index] === "o") return;
         boardArray.splice(index, 1, gameController.getTurn());
         render();
+        checkWinCondition();
+        checkTie();
         gameController.changeTurn();
+    }
+
+    function checkWinCondition(){
+        const winCondition = (gameController.getTurn() === "x") ? "xxx" : "ooo";
+        const rows = [];
+        for (let i = 3; i <= boardArray.length; i += 3) {
+            rows.push(boardArray.slice(i - 3, i));
+        }
+
+        for (let i = 0; i < 3; i++) {
+            let row = "";
+            let column = "";
+            let diag1 = "";
+            let diag2 = "";
+            for (let j = 0; j < 3; j++) {
+                 row += rows[i][j];
+                 column += rows[j][i];
+                 diag1 += rows[j][j]
+                 diag2 += rows[2 - j][j]
+            }
+            switch (winCondition) {
+                case row:
+                    break;
+                case column:
+                    break;
+                case diag1:
+                    break;
+                case diag2:
+                    break;    
+            }
+        }
+    }
+
+    function checkTie(){
+        const moves = boardArray.filter(el => el != 0);
+        if (moves.length === 9){
+            
+        }
     }
 
     return {
