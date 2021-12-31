@@ -186,7 +186,7 @@ const gameController = (function () {
 		let name = player.name;
 		if (event != undefined) {
 			const input = event.target.previousElementSibling.firstElementChild;
-			name = input.value;
+			name = input.value ? input.value : name;
 			input.value = "";
 		}
 		player = Object.assign(player, Player(name));
