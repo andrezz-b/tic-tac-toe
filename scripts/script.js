@@ -56,19 +56,9 @@ const gameBoard = (function(){
                  diag1 += rows[j][j];
                  diag2 += rows[2 - j][j];
             }
-            switch (winCondition) {
-                case row:
-                    gameController.createOverlay();
-                    return 1;
-                case column:
-                    gameController.createOverlay();
-                    return 1;
-                case diag1:
-                    gameController.createOverlay();
-                    return 1;
-                case diag2:
-                    gameController.createOverlay();
-                    return 1;
+            if (row === winCondition || column === winCondition || diag1 === winCondition || diag2 === winCondition) {
+                gameController.createOverlay();
+                return 1;
             }
         }
         return 0;
