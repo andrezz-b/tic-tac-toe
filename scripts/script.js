@@ -5,7 +5,6 @@ const gameBoard = (function(){
 
     function init(){
         boardFields.forEach((el, i) => {
-            el.setAttribute("data-key", i);
             el.addEventListener("click", populateBoard);
         })
     }
