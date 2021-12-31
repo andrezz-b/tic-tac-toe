@@ -58,16 +58,16 @@ const gameBoard = (function(){
             }
             switch (winCondition) {
                 case row:
-                    gameController.nextRound();
+                    gameController.createOverlay();
                     return 1;
                 case column:
-                    gameController.nextRound();
+                    gameController.createOverlay();
                     return 1;
                 case diag1:
-                    gameController.nextRound();
+                    gameController.createOverlay();
                     return 1;
                 case diag2:
-                    gameController.nextRound();
+                    gameController.createOverlay();
                     return 1;
             }
         }
@@ -77,7 +77,7 @@ const gameBoard = (function(){
     function checkTie(){
         const moves = boardArray.filter(el => el != 0);
         if (moves.length === 9){
-            gameController.nextRound(true);
+            gameController.createOverlay(true);
             return 1;
         }
         return 0;
@@ -113,18 +113,23 @@ const Player = function(name){
 }
 
 const gameController = (function(){
-    const startBtn = document.querySelector("#start-btn");
     const resetBtn = document.querySelector("#reset-btn");
     const setPlayer1btn = document.querySelector("#player1-input button");
     const setPlayer2btn = document.querySelector("#player2-input button");
+    const overlay = document.querySelector(".overlay");
     const player1 = {name: "Player 1", sym: "o",};
     const player2 = {name: "Player 2", sym: "x",};
 
     let turn = "o";
 
+    init();
+
     function addListeners(){
-        startBtn.addEventListener("click", init);
         resetBtn.addEventListener("click", reset);
+        overlay.addEventListener("click", function(){
+            removeOverlay();
+            nextRound(overlay.getAttribute("data-tie"));
+        });
         setPlayer1btn.addEventListener("click", function(e){
             reset();
             createPlayer(e, player1);
@@ -142,11 +147,30 @@ const gameController = (function(){
     }
 
     function reset(){
+        overlay.style.display = "none";
         gameBoard.resetBoard();
         createPlayer(undefined, player1);
         createPlayer(undefined, player2);
         updateScore();
         turn = "o";
+    }
+
+    function createOverlay(tie){
+        overlay.style.display = "flex";
+        if (tie) {
+            overlay.firstChild.textContent = "Tie";
+            overlay.setAttribute("data-tie", 1);
+        } else {
+            if (getTurn() === "o"){
+                overlay.firstChild.textContent = `${player1.name} wins!`;
+            } else {
+                overlay.firstChild.textContent = `${player2.name} wins!`;
+            }
+        }
+    }
+
+    function removeOverlay(){
+        overlay.style.display = "none";
     }
 
     function getTurn(){
@@ -197,6 +221,7 @@ const gameController = (function(){
 
     return {
         addListeners,
+        createOverlay,
         nextRound,
         getTurn,
         changeTurn,
