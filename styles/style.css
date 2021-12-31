@@ -96,6 +96,10 @@ main.center {
     height: calc(var(--board-width) / 3);
 }
 
+#board div:hover{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 #board .overlay {
     display: none;
     position: absolute;
