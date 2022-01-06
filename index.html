@@ -9,6 +9,7 @@
 			href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap"
 			rel="stylesheet"
 		/>
+		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 		<link rel="stylesheet" href="styles/reset.css" />
 		<link rel="stylesheet" href="styles/style.css" />
 		<title>Tic-Tac-Toe</title>
@@ -21,22 +22,44 @@
 			<div class="center center--column scoreboard">
 				<div class="center">SCORE</div>
 				<div class="center scoreboard--counter">
-					<h2 class="player1">Player 1</h2>
-                    <span id="counter-player1">0</span>
-                    <span id="counter-player2">0</span>
-					<h2 class="player2">Player 2</h2>
+					<div class="center center--column input">
+						<h2 class="player1">
+							<i class='fa fa-pencil-square-o'></i>Player 1
+						</h2>
+						<div class="center center--column input-popup" id="player1-input">
+							<input type="text" placeholder="Enter Your Name" />
+							<div class="center buttons">
+								<button class="btn-simple">Set</button>
+								<button class="btn-simple">Cancel</button>
+							</div>
+						</div>
+					</div>
+					<span id="counter-player1">0</span>
+					<span id="counter-player2">0</span>
+					<div class="center center--column input">
+						<h2 class="player2">
+							Player 2<i class='fa fa-pencil-square-o'></i>
+						</h2>
+						<div class="center center--column input-popup" id="player2-input">
+							<input type="text" placeholder="Enter Your Name" />
+							<div class="center buttons">
+								<button class="btn-simple">SET</button>
+								<button class="btn-simple">Cancel</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="center center--board">
+			<!-- <div class="center center--board">
 				<div class="center input center--column" id="player1-input">
 					<div class="center">
 						<h2 class="player1">Player 1<span>&#x25CB;</span></h2>
 					</div>
 					<label>
-						<input type="text" placeholder="Enter Your Name"/>
+						<input type="text" placeholder="Enter Your Name" />
 					</label>
-                    <button class="btn-simple">SET</button>
-				</div>
+					<button class="btn-simple">SET</button>
+				</div> -->
 				<div id="board">
 					<div class="center" data-key="0"><span></span></div>
 					<div class="center" data-key="1"><span></span></div>
@@ -47,21 +70,21 @@
 					<div class="center" data-key="6"><span></span></div>
 					<div class="center" data-key="7"><span></span></div>
 					<div class="center" data-key="8"><span></span></div>
-                    <div class="overlay center"><h3>Player 1 wins</h3></div>
+					<div class="overlay center"><h3>Player 1 wins</h3></div>
 				</div>
-				<div class="center input center--column" id="player2-input">
+				<!-- <div class="center input center--column" id="player2-input">
 					<div class="center">
 						<h2 class="player2">Player 2<span>&#10060;</span></h2>
 					</div>
 					<label>
 						<input type="text" placeholder="Enter Your Name" />
 					</label>
-                    <button class="btn-simple">SET</button>
-				</div>
+					<button class="btn-simple">SET</button>
+				</div> -->
 			</div>
-			<div class="center buttons">
-                <button class="btn-simple" id="reset-btn">RESET</button>
-            </div>
+			<div class="center">
+				<button class="btn-simple" id="reset-btn">RESET</button>
+			</div>
 		</main>
 		<footer class="center">
 			<div>Copyright &#9400; 2021 andrezz-b</div>
