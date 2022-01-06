@@ -47,7 +47,6 @@ const gameBoard = (function () {
 	function checkWinner() {
 		const winCondition = (gameController.getTurn() === "x") ? "xxx" : "ooo";
 		const player = (gameController.getTurn() === "x") ? "player2" : "player1";
-		console.log(player, gameController.getTurn())
 		const rows = [];
 		const moves = boardArray.filter((el) => el != 0);
 
@@ -100,11 +99,15 @@ const gameBoard = (function () {
 	};
 })();
 
-const Player = function (name) {
+const Player = function (name, sym) {
 	let score = 0;
 
 	function increaseScore() {
 		score++;
+	}
+
+	function resetScore(){
+		score = 0;
 	}
 
 	function getScore() {
@@ -117,7 +120,9 @@ const Player = function (name) {
 
 	return {
 		name,
+		sym,
 		getScore,
+		resetScore,
 		getSym,
 		increaseScore,
 	};
@@ -128,8 +133,8 @@ const gameController = (function () {
 	const setPlayer1btn = document.querySelector("#player1-input button");
 	const setPlayer2btn = document.querySelector("#player2-input button");
 
-	const player1 = { name: "Player 1", sym: "o" };
-	const player2 = { name: "Player 2", sym: "x" };
+	const player1 = Player("Player 1", "o");
+	const player2 = Player("Player 2", "x");
 
 	let turn = "o";
 
@@ -139,26 +144,23 @@ const gameController = (function () {
 		resetBtn.addEventListener("click", reset);
 
 		setPlayer1btn.addEventListener("click", function (e) {
-			reset();
 			createPlayer(e, player1);
 		});
 		setPlayer2btn.addEventListener("click", function (e) {
-			reset();
 			createPlayer(e, player2);
 		});
 	}
 
 	function init() {
-		createPlayer(undefined, player1);
-		createPlayer(undefined, player2);
+		addListeners();
 		gameBoard.init();
 	}
 
 	function reset() {
 		displayController.removeOverlay();
 		gameBoard.resetBoard();
-		createPlayer(undefined, player1);
-		createPlayer(undefined, player2);
+		player1.resetScore();
+		player2.resetScore();
 		displayController.updateScore();
 		turn = "o";
 	}
@@ -172,22 +174,17 @@ const gameController = (function () {
 	}
 
 	function createPlayer(event, player) {
-		let name = player.name;
-		if (event != undefined) {
-			const input = event.target.previousElementSibling.firstElementChild;
-			name = input.value ? input.value : name;
-			input.value = "";
-		}
-		player = Object.assign(player, Player(name));
-		setName(player);
-	}
+		const input = event.target.previousElementSibling.firstElementChild;
+		// Stops from setting empty names
+		if (input.value === "") return;
 
-	function setName(player) {
-		let className = player.sym === "o" ? ".player1" : ".player2";
-		const playerElements = document.querySelectorAll(className);
-		playerElements.forEach((el) => {
-			el.textContent = player.name;
-		});
+		let sym = player.sym
+		let name = input.value ? input.value : name;
+		input.value = "";
+		// When a new name is set it's creating a new player so it treats it like a new game
+		reset();
+		player = Object.assign(player, Player(name, sym));
+		displayController.setName(player);
 	}
 
 	function nextRound() {
@@ -208,7 +205,6 @@ const gameController = (function () {
 	}
 
 	return {
-		addListeners,
 		nextRound,
 		getTurn,
 		changeTurn,
@@ -245,6 +241,14 @@ const displayController = (function(){
 		player2Score.textContent = gameController.getPlayers()[1].getScore();
 	}
 
+	function setName(player) {
+		let className = (player.sym === "o") ? ".player1" : ".player2";
+		const playerElements = document.querySelectorAll(className);
+		playerElements.forEach((el) => {
+			el.textContent = player.name;
+		});
+	}
+
 	function addListeners(){
 		overlay.addEventListener("click", function () {
 			removeOverlay();
@@ -255,8 +259,7 @@ const displayController = (function(){
 	return {
 		removeOverlay,
 		createOverlay,
-		updateScore
+		updateScore,
+		setName
 	}
 })();
-
-gameController.addListeners();
