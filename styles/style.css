@@ -54,44 +54,6 @@ header{
     width: 100%;
 }
 
-.input {
-    font-family: var(--ff-text);
-    gap: .4rem;
-    font-size: 1.5em;
-    position: relative;
-}
-
-.input-popup {
-    box-sizing: content-box;
-    position: absolute;
-    top: 130%;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 1rem 2rem;
-    gap: 1rem;
-    z-index: 100;
-    background-color: lightgray;
-}
-
-.input-popup input[type="text"]{
-    font-size: 1.1rem;
-    font-family: var(--ff-text);
-    letter-spacing: 1.5px;
-    border-radius: 7px;
-    outline: none;
-    border: 2px solid rgb(184, 184, 184);
-    padding: .25em .6em;
-}
-
-.input-popup input[type="text"]:focus {
-    outline-offset: 0;
-    border: 2px solid black;
-}
-
-.buttons {
-    gap: 1rem;
-}
-
 main.center {
     width: 100%;
     height: 100%;
@@ -138,6 +100,44 @@ main.center {
 
 .player2, .player1 {
     justify-self: center;
+}
+
+.input {
+    font-family: var(--ff-text);
+    gap: .4rem;
+    font-size: 1.5em;
+    position: relative;
+}
+
+.input-popup {
+    box-sizing: content-box;
+    position: absolute;
+    top: 130%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+    gap: 1rem;
+    z-index: 100;
+    background-color: lightgray;
+}
+
+.input-popup input[type="text"]{
+    font-size: 1.1rem;
+    font-family: var(--ff-text);
+    letter-spacing: 1.5px;
+    border-radius: 7px;
+    outline: none;
+    border: 2px solid rgb(184, 184, 184);
+    padding: .25em .6em;
+}
+
+.input-popup input[type="text"]:focus {
+    outline-offset: 0;
+    border: 2px solid black;
+}
+
+.buttons {
+    gap: 1rem;
 }
 
 .center.center--board {
@@ -216,6 +216,10 @@ main.center {
   .cross::after {
     transform: rotate(-45deg);
   }
+
+#reset-btn {
+    font-size: 1.75em;
+}
 
 footer {
     font-size: 0.85rem;
