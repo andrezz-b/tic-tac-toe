@@ -65,7 +65,7 @@ main.center {
 }
 
 .scoreboard {
-    font-size: 2.45em;
+    font-size: 2.65em;
     font-family: var(--ff-title);
     font-weight: 500;
     row-gap: 1.25rem;
@@ -73,10 +73,10 @@ main.center {
 
 .center.scoreboard--counter{
     font-size: 0.85em;
-    font-family: var(--ff-text);
+    font-family: var(--ff-title);
     font-weight: 300;
     display: grid;
-    grid-template-columns: 1fr 1.25fr 1.25fr 1fr;
+    grid-template-columns: 1fr 7.5rem 7.5rem 1fr;
 }
 
 .center.scoreboard--counter span {
@@ -92,6 +92,8 @@ main.center {
     vertical-align: middle;
     cursor: pointer;
     opacity: 0.7;
+    align-self: flex-end;
+    margin-bottom: 1rem;
 }
 
 .fa-pencil-square-o:hover {
@@ -100,6 +102,18 @@ main.center {
 
 .player2, .player1 {
     justify-self: center;
+    margin: 0 3.5rem;
+}
+.player1 .circle {
+    height: 1em;
+    width: 1em;
+    border: .4rem solid black;
+    margin-left: 3rem;
+}
+
+.fa.fa-close {
+    font-size: 1.25em;
+    margin-right: 3rem;
 }
 
 .input {

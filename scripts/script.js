@@ -130,8 +130,6 @@ const Player = function (name, sym) {
 
 const gameController = (function () {
 	const resetBtn = document.querySelector("#reset-btn");
-	const setPlayer1btn = document.querySelector("#player1-input button");
-	const setPlayer2btn = document.querySelector("#player2-input button");
 
 	const player1 = Player("Player 1", "o");
 	const player2 = Player("Player 2", "x");
@@ -239,8 +237,8 @@ const displayController = (function(){
 		let className = (player.sym === "o") ? ".player1" : ".player2";
 		const playerNameElement = document.querySelector(className).childNodes;
 		playerNameElement.forEach(el => {
-			if(el.nodeValue != ""){
-				el.nodeValue = player.name;
+			if (el.nodeValue != null) {
+				el.nodeValue = (el.nodeValue.trim() != "") ? player.name : el.nodeValue;
 			}
 		})
 	}
@@ -274,7 +272,7 @@ const inputController = (function(){
 	}
 
 	function openPopup(e){
-		const player = e.target.parentElement.getAttribute("class");
+		const player = e.target.parentElement.getAttribute("class").slice(0, 7);
 		const inputElement = document.querySelector(`#${player}-input`);
 		const inputText = inputElement.firstElementChild;
 		inputText.value = "";
