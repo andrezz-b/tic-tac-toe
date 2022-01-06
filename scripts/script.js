@@ -142,13 +142,6 @@ const gameController = (function () {
 
 	function addListeners() {
 		resetBtn.addEventListener("click", reset);
-
-		setPlayer1btn.addEventListener("click", function (e) {
-			createPlayer(e, player1);
-		});
-		setPlayer2btn.addEventListener("click", function (e) {
-			createPlayer(e, player2);
-		});
 	}
 
 	function init() {
@@ -174,7 +167,7 @@ const gameController = (function () {
 	}
 
 	function createPlayer(event, player) {
-		const input = event.target.previousElementSibling.firstElementChild;
+		const input = event.target.parentElement.previousElementSibling;
 		// Stops from setting empty names
 		if (input.value === "") return;
 
@@ -208,7 +201,8 @@ const gameController = (function () {
 		nextRound,
 		getTurn,
 		changeTurn,
-		getPlayers
+		getPlayers,
+		createPlayer
 	};
 })();
 
@@ -243,10 +237,12 @@ const displayController = (function(){
 
 	function setName(player) {
 		let className = (player.sym === "o") ? ".player1" : ".player2";
-		const playerElements = document.querySelectorAll(className);
-		playerElements.forEach((el) => {
-			el.textContent = player.name;
-		});
+		const playerNameElement = document.querySelector(className).childNodes;
+		playerNameElement.forEach(el => {
+			if(el.nodeValue != ""){
+				el.nodeValue = player.name;
+			}
+		})
 	}
 
 	function addListeners(){
@@ -261,5 +257,38 @@ const displayController = (function(){
 		createOverlay,
 		updateScore,
 		setName
+	}
+})();
+
+const inputController = (function(){
+	const inputPopupBtn = document.querySelectorAll(".fa-pencil-square-o");
+	const inputSetBtn = document.querySelectorAll(".input-set");
+	const inputCancelBtn = document.querySelectorAll(".input-cancel");
+
+	addListeners();
+
+	function addListeners(){
+		inputPopupBtn.forEach(el => el.addEventListener("click", openPopup));
+		inputCancelBtn.forEach(el => el.addEventListener("click", closePopup));
+		inputSetBtn.forEach(el => el.addEventListener("click", changeName))
+	}
+
+	function openPopup(e){
+		const player = e.target.parentElement.getAttribute("class");
+		const inputElement = document.querySelector(`#${player}-input`);
+		const inputText = inputElement.firstElementChild;
+		inputText.value = "";
+		inputElement.classList.toggle("displayOn");
+	}
+
+	function changeName(e){
+		const playerIndex = parseInt(e.target.closest("h2 ~ div").getAttribute("id").slice(6, 7)) - 1;
+		gameController.createPlayer(e, gameController.getPlayers()[playerIndex]);
+		closePopup(e);
+	}
+
+	function closePopup(e){
+		const inputElement = e.target.closest("h2 ~ div");
+		inputElement.classList.remove("displayOn");
 	}
 })();

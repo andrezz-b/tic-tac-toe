@@ -76,7 +76,7 @@ main.center {
     font-family: var(--ff-text);
     font-weight: 300;
     display: grid;
-    grid-template-columns: 1fr 1.25fr 1.25fr 1fr ;
+    grid-template-columns: 1fr 1.25fr 1.25fr 1fr;
 }
 
 .center.scoreboard--counter span {
@@ -118,7 +118,14 @@ main.center {
     padding: 1rem 2rem;
     gap: 1rem;
     z-index: 100;
-    background-color: lightgray;
+    background-color: rgba(211, 211, 211, 0.671);
+    transform: scale(0);
+    transition: transform 300ms ease-in-out;
+    transform-origin: top center;
+}
+
+.displayOn {
+    transform: scale(1);
 }
 
 .input-popup input[type="text"]{
