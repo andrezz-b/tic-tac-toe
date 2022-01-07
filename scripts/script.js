@@ -33,9 +33,9 @@ const gameBoard = (function () {
 	function populateBoard(e) {
 		const div = e.target;
 		const index = parseInt(div.getAttribute("data-key"));
-
+		
         // If there is something in the array at that index, stop
-		if (boardArray[index] === "x" || boardArray[index] === "o") return;
+		if (isNaN(index) || boardArray[index] === "x" || boardArray[index] === "o") return;
 
 		boardArray.splice(index, 1, gameController.getTurn());
 		render();
